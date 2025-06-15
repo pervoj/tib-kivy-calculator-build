@@ -1,0 +1,74 @@
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java 17 required by Gradle
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set JAVA_HOME
+        run: echo "JAVA_HOME=$JAVA_HOME" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Install and upgrade dependencies
+        run: |
+          export PATH="$PATH:~/.local/bin"
+          sudo apt update
+          sudo apt install -y \
+            ant \
+            autoconf \
+            automake \
+            ccache \
+            cmake \
+            g++ \
+            gcc \
+            git \
+            lbzip2 \
+            libffi-dev \
+            libltdl-dev \
+            libtool \
+            libssl-dev \
+            make \
+            openjdk-17-jdk \
+            patch \
+            pkg-config \
+            python3 \
+            python3-dev \
+            python3-full \
+            python3-pip \
+            python3-virtualenv \
+            python3-venv \
+            python3-setuptools \
+            python3-distutils-extra \
+            cython3 \
+            sudo \
+            unzip \
+            wget \
+            zip
+          python3 -m pip install --upgrade setuptools buildozer
+        shell: bash
+
+      - name: Install requirements in requirements.txt if it exists
+        run: |
+          if [ -f requirements.txt ]; then
+            python3 -m pip install -r requirements.txt
+          fi
+        shell: bash
+
+      - name: Build APK
+        run: buildozer -v android debug
+        shell: bash
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: package
+          path: ./bin/*.apk
