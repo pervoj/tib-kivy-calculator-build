@@ -1,13 +1,13 @@
 [app]
 
 # (str) Title of your application
-title = My Application
+title = Kalkulačka
 
 # (str) Package name
-package.name = myapp
+package.name = calculator
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.test
+package.domain = cz.pervoj.tib.kivy
 
 # ------------------------------------------------------------------------------
 
