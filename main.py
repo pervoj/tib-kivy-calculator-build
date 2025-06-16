@@ -4,7 +4,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 
 class MainApp(App):
-  title = "Kalkulačka"
+  title = "Moje kalkulačka"
 
   def build(self):
     self.main_layout = GridLayout(cols = 1, padding = 10, spacing = 10)

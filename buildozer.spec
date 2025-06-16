@@ -1,7 +1,7 @@
 [app]
 
 # (str) Title of your application
-title = Kalkulačka
+title = Moje kalkulačka
 
 # (str) Package name
 package.name = calculator
